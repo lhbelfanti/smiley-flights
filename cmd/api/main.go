@@ -16,10 +16,7 @@ import (
 	"smiley-flights/internal/smiles"
 )
 
-const (
-	smilesFlightsDomain = "api-air-flightsearch-green.smiles.com.br"
-	smilesTaxDomain     = "api-airlines-boarding-tax-green.smiles.com.br"
-)
+const smilesFlightsDomain = "api-air-flightsearch-green.smiles.com.br"
 
 func main() {
 	/* --- Dependencies --- */
@@ -37,10 +34,9 @@ func main() {
 
 	// External Service
 	getSmilesFlights := smiles.MakeGetFlights(httpClient, apiKey, smilesFlightsDomain, authorization)
-	// getSmilesTax := smiles.MakeGetTax(httpClient, apiKey, smilesTaxDomain)
 
 	// Services
-	processResults := flights.MakeProcessResults() // getSmilesTax)
+	processResults := flights.MakeProcessResults()
 	searchFlights := flights.MakeSearch(getSmilesFlights, processResults)
 
 	/* --- Router --- */

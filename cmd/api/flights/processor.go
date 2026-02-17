@@ -10,7 +10,7 @@ import (
 type ProcessResults func(ctx context.Context, results []smiles.Result, criteria smiles.Criteria) []FlightResponseDTO
 
 // MakeProcessResults creates a new ProcessResults function.
-func MakeProcessResults() ProcessResults { // getTax smiles.GetTax) ProcessResults {
+func MakeProcessResults() ProcessResults {
 	const bigMaxMilesNumber = 9_999_999
 
 	return func(ctx context.Context, results []smiles.Result, criteria smiles.Criteria) []FlightResponseDTO {
@@ -35,20 +35,7 @@ func MakeProcessResults() ProcessResults { // getTax smiles.GetTax) ProcessResul
 			}
 
 			if cheapestFareDay.Miles != bigMaxMilesNumber {
-				/*
-					boardingTax, err := getTax(ctx, cheapestFlightDay, cheapestFareDay, criteria)
-					if err != nil {
-						log.Warn(ctx, err.Error())
-						// We don't want to abort processing due to a tax retrieval error
-					}
-				*/
-				tax := float32(0)
-				/*
-					if err == nil && boardingTax != nil {
-						tax = boardingTax.Totals.Total.Money
-					}
-				*/
-				processedResults = append(processedResults, ToFlightResponseDTO(cheapestFlightDay, cheapestFareDay, tax))
+				processedResults = append(processedResults, ToFlightResponseDTO(cheapestFlightDay, cheapestFareDay, 0))
 			}
 		}
 
