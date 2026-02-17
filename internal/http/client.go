@@ -114,7 +114,7 @@ func (c *CustomClient) NewRequest(ctx context.Context, method, url string, body 
 		log.Error(ctx, fmt.Sprintf("Request to %s failed with error %s. Retrying... (Attempt %d/%d)", url, errMsg, attempt+1, maxRetries))
 
 		// Delay before retrying
-		time.Sleep(3000 * time.Millisecond)
+		time.Sleep(500 * time.Millisecond)
 	}
 
 	log.Error(ctx, FailedToExecuteRequest.Error())

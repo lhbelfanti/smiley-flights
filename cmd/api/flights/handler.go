@@ -35,15 +35,6 @@ func SearchHandlerV1(search Search) http.HandlerFunc {
 			log.Param("daysBeforeReturn", req.DaysBeforeReturn),
 			log.Param("daysAfterReturn", req.DaysAfterReturn),
 			log.Param("adults", req.Adults),
-			log.Param("cabinType", req.CabinType),
-			log.Param("children", req.Children),
-			log.Param("infants", req.Infants),
-			log.Param("isFlexibleDateChecked", req.IsFlexibleDateChecked),
-			log.Param("tripType", req.TripType),
-			log.Param("region", req.Region),
-			log.Param("currencyCode", req.CurrencyCode),
-			log.Param("forceCongener", req.ForceCongener),
-			log.Param("r", req.R),
 		)
 
 		results, err := search(ctx, req)

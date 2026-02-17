@@ -17,8 +17,8 @@ import (
 )
 
 const (
-	smilesFlightsDomain = "api-air-flightsearch-green.smiles.com.ar"
-	smilesTaxDomain     = "api-airlines-boarding-tax-green.smiles.com.ar"
+	smilesFlightsDomain = "api-air-flightsearch-green.smiles.com.br"
+	smilesTaxDomain     = "api-airlines-boarding-tax-green.smiles.com.br"
 )
 
 func main() {

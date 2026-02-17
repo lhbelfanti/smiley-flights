@@ -31,17 +31,17 @@ func MakeSearch(getFlights smiles.GetFlights, processResults ProcessResults) Sea
 
 		criteria := smiles.Criteria{
 			Adults:                 req.Adults,
-			CabinType:              req.CabinType,
-			Children:               req.Children,
-			Infants:                req.Infants,
-			IsFlexibleDateChecked:  req.IsFlexibleDateChecked,
-			TripType:               req.TripType,
-			Region:                 req.Region,
+			CabinType:              "all",
+			Children:               "0",
+			Infants:                "0",
+			IsFlexibleDateChecked:  "false",
+			TripType:               "2",
+			Region:                 "ARGENTINA",
+			CurrencyCode:           "ARS",
+			ForceCongener:          "true",
+			R:                      "ar",
 			OriginAirportCode:      req.Origin,
 			DestinationAirportCode: req.Destination,
-			CurrencyCode:           req.CurrencyCode,
-			ForceCongener:          req.ForceCongener,
-			R:                      req.R,
 		}
 
 		var departureResults []smiles.Result
@@ -80,15 +80,15 @@ func MakeSearch(getFlights smiles.GetFlights, processResults ProcessResults) Sea
 
 		baseCriteria := smiles.Criteria{
 			Adults:                req.Adults,
-			Children:              req.Children,
-			Infants:               req.Infants,
-			Region:                req.Region,
-			CabinType:             req.CabinType,
-			IsFlexibleDateChecked: req.IsFlexibleDateChecked,
-			TripType:              req.TripType,
-			CurrencyCode:          req.CurrencyCode,
-			ForceCongener:         req.ForceCongener,
-			R:                     req.R,
+			Children:              "0",
+			Infants:               "0",
+			Region:                "ARGENTINA",
+			CabinType:             "all",
+			IsFlexibleDateChecked: "false",
+			TripType:              "2",
+			CurrencyCode:          "ARS",
+			ForceCongener:         "true",
+			R:                     "ar",
 		}
 
 		return SearchResponseDTO{

@@ -9,24 +9,15 @@ import (
 type (
 	// FlightRequestDTO represents the search parameters for flights
 	FlightRequestDTO struct {
-		Origin                string `json:"origin"`
-		Destination           string `json:"destination"`
-		Departure             string `json:"departure"`
-		Return                string `json:"return"`
-		DaysBeforeDeparture   int    `json:"daysBeforeDeparture"`
-		DaysAfterDeparture    int    `json:"daysAfterDeparture"`
-		DaysBeforeReturn      int    `json:"daysBeforeReturn"`
-		DaysAfterReturn       int    `json:"daysAfterReturn"`
-		Adults                string `json:"adults"`
-		CabinType             string `json:"cabinType"`
-		Children              string `json:"children"`
-		Infants               string `json:"infants"`
-		IsFlexibleDateChecked string `json:"isFlexibleDateChecked"`
-		TripType              string `json:"tripType"`
-		Region                string `json:"region"`
-		CurrencyCode          string `json:"currencyCode"`
-		ForceCongener         string `json:"forceCongener"`
-		R                     string `json:"r"`
+		Origin              string `json:"origin"`
+		Destination         string `json:"destination"`
+		Departure           string `json:"departure"`
+		Return              string `json:"return"`
+		DaysBeforeDeparture int    `json:"daysBeforeDeparture"`
+		DaysAfterDeparture  int    `json:"daysAfterDeparture"`
+		DaysBeforeReturn    int    `json:"daysBeforeReturn"`
+		DaysAfterReturn     int    `json:"daysAfterReturn"`
+		Adults              string `json:"adults"`
 	}
 
 	// FlightResponseDTO represents a single flight result
