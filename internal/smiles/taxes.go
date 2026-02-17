@@ -14,7 +14,7 @@ type GetTax func(ctx context.Context, flight *Flight, fare *Fare, criteria Crite
 
 // MakeGetTax creates a new GetTax function
 func MakeGetTax(httpClient http.Client, apiKey, domain string) GetTax {
-	taxURL := "https://" + domain + "/v1/airlines/search"
+	taxURL := "https://" + domain + "/v1/airlines/flight"
 
 	return func(ctx context.Context, flight *Flight, fare *Fare, criteria Criteria) (*BoardingTax, error) {
 		u, _ := url.Parse(taxURL)
