@@ -3,23 +3,20 @@ package main
 import (
 	"context"
 	"fmt"
-	"net/http"
 	"os"
+	"smiley-flights/cmd/api/search"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 
-	"smiley-flights/cmd/api/flights"
-	_http "smiley-flights/internal/http"
+	"smiley-flights/cmd/api/scrapper"
 	"smiley-flights/internal/log"
 	"smiley-flights/internal/setup"
-	"smiley-flights/internal/smiles"
+	"smiley-flights/internal/webdriver"
 )
 
-const smilesFlightsDomain = "api-air-flightsearch-green.smiles.com.br"
-
 func main() {
-	/* --- Dependencies --- */
 	ctx := context.Background()
 
 	setup.Must(godotenv.Load())
@@ -27,32 +24,35 @@ func main() {
 	logLevel := zerolog.DebugLevel
 	log.NewCustomLogger(os.Stdout, logLevel)
 
-	httpClient := _http.NewClient()
+	log.Info(ctx, "Initializing WebDriver Manager...")
+	newWebDriverManager := webdriver.MakeNewManager()
+	wdManager := newWebDriverManager(ctx)
+	defer setup.Must(wdManager.Quit(ctx))
 
-	apiKey := os.Getenv("SMILES_API_KEY")
-	authorization := os.Getenv("SMILES_AUTHORIZATION")
+	log.Info(ctx, "Initializing Smiles Scrapper...")
+	makeScrapper := scrapper.MakeNew()
+	executeScrapper := makeScrapper(wdManager.WebDriver())
 
-	// External Service
-	getSmilesFlights := smiles.MakeGetFlights(httpClient, apiKey, smilesFlightsDomain, authorization)
-
-	// Services
-	processResults := flights.MakeProcessResults()
-	searchFlights := flights.MakeSearch(getSmilesFlights, processResults)
-
-	/* --- Router --- */
-	log.Info(ctx, "Initializing router...")
-	router := http.NewServeMux()
-
-	router.HandleFunc("POST /flights/search/v1", flights.SearchHandlerV1(searchFlights))
-
-	log.Info(ctx, "Router initialized!")
-
-	/* --- Server --- */
-	port := os.Getenv("API_PORT")
-	if port == "" {
-		port = "8080"
+	log.Info(ctx, "Executing Scrapper...")
+	searchParameters := search.Parameters{
+		Origin:         "BUE",
+		Destination:    "CTG",
+		DepartureDate:  "2026-07-04",
+		ReturnDate:     "2026-07-15",
+		Adults:         2,
+		Children:       0,
+		Infants:        0,
+		IsFlexibleDate: false,
+		TripType:       1,
+		CabinType:      "all",
+		CurrencyCode:   "ARS",
 	}
-	addr := fmt.Sprintf(":%s", port)
-	log.Info(ctx, fmt.Sprintf("smiley-flights server is ready to receive request on port %s", port))
-	setup.Must(http.ListenAndServe(addr, router))
+
+	err := executeScrapper(ctx, searchParameters.ToQueryString())
+	if err != nil {
+		log.Error(ctx, fmt.Sprintf("Error executing scrapper: %v", err))
+		return
+	}
+
+	time.Sleep(10 * time.Minute) // Wait time to visually understand what happened
 }
