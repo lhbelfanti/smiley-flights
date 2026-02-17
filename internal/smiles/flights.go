@@ -15,10 +15,13 @@ type GetFlights func(ctx context.Context, criteria Criteria) (Data, error)
 // MakeGetFlights creates a new GetFlights function
 func MakeGetFlights(httpClient http.Client, apiKey, domain, authorization string) GetFlights {
 	const dateLayout = "2006-01-02"
-	flightsURL := "https://" + domain + "/v1/airlines/search"
 
 	return func(ctx context.Context, criteria Criteria) (Data, error) {
-		u, _ := url.Parse(flightsURL)
+		u := url.URL{
+			Scheme: "https",
+			Host:   domain,
+			Path:   "/v1/airlines/search",
+		}
 		q := u.Query()
 		q.Set("adults", criteria.Adults)
 		q.Set("cabinType", criteria.CabinType)
@@ -42,7 +45,7 @@ func MakeGetFlights(httpClient http.Client, apiKey, domain, authorization string
 			"accept-language":    "es-ES,es;q=0.9,en;q=0.8,de;q=0.7",
 			"authorization":      authorization,
 			"cache-control":      "no-cache",
-			"channel":            "Web",
+			"channel":            "web",
 			"language":           "es-ES",
 			"origin":             "https://www.smiles.com.ar",
 			"pragma":             "no-cache",

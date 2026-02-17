@@ -1,0 +1,81 @@
+{
+  "info": {
+    "_postman_id": "fc35ba35-881b-4027-a247-5171f597cec9",
+    "name": "smiley-flights",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "41018426"
+  },
+  "item": [
+    {
+      "name": "Search Flights v1",
+      "protocolProfileBehavior": {
+        "disableCookies": true,
+        "disabledSystemHeaders": {
+          "content-type": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"origin\": \"EZE\",\n    \"destination\": \"GRU\",\n    \"departure\": \"2026-10-01\",\n    \"return\": \"2026-11-01\",\n    \"daysBeforeDeparture\": 1,\n    \"daysAfterDeparture\": 1,\n    \"daysBeforeReturn\": 1,\n    \"daysAfterReturn\": 1,\n    \"adults\": \"1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base}}/flights/search/v1",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "flights",
+            "search",
+            "v1"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'http://localhost:8080/flights/search/v1' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"origin\": \"EZE\",\n    \"destination\": \"CTG\",\n    \"departure\": \"2026-07-04\",\n    \"return\": \"2026-07-14\",\n    \"daysBeforeDeparture\": 2,\n    \"daysAfterDeparture\": 2,\n    \"daysBeforeReturn\": 2,\n    \"daysAfterReturn\": 2,\n    \"adults\": \"2\",\n    \"cabinType\": \"all\",\n    \"children\": \"0\",\n    \"infants\": \"0\",\n    \"isFlexibleDateChecked\": \"false\",\n    \"tripType\": \"1\",\n    \"region\": \"ARGENTINA\",\n    \"currencyCode\": \"ARS\",\n    \"forceCongener\": \"false\",\n    \"r\": \"ar\"\n}'\n"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
